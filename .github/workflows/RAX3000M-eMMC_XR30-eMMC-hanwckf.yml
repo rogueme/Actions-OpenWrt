@@ -275,21 +275,12 @@ jobs:
         mapfile -t devices < <(grep '^CONFIG_TARGET_DEVICE.*=y' openwrt/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        error_occurred=false
         for val in "${devices[@]}"; do
-          if! rename "s/.*${val}/${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${val}${{ env.WIFI_VERSION }}${{ env.EEPROM }}${{ env.BUILD_DOCKERMAN }}/" *; then
-            echo "Error: Failed to rename files related to $val"
-            error_occurred=true
-          else
-            echo "$val renamed successfully"
-          fi
+          rename "s/.*${val}/${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${val}${{ env.WIFI_VERSION }}${{ env.EEPROM }}${{ env.BUILD_DOCKERMAN }}/" *
+          echo "$val"
         done
-        if [ "$error_occurred" = true ]; then
-          echo "status=failure" >> $GITHUB_OUTPUT
-        else
-          echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-          echo "status=success" >> $GITHUB_OUTPUT
-        fi
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 打包上传固件到Actions Artifacts
       uses: actions/upload-artifact@main
