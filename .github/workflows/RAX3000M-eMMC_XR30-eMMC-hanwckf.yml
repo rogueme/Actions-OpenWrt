@@ -264,7 +264,10 @@ jobs:
     - name: 查看磁盘使用情况
       if: (!cancelled())
       run: df -hT
-
+      
+    - name: 安装rename工具
+      run: sudo apt-get -qq install rename
+      
     - name: 整理文件并重命名
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
@@ -272,7 +275,6 @@ jobs:
         mapfile -t devices < <(grep '^CONFIG_TARGET_DEVICE.*=y' openwrt/.config | sed -r 's/.*DEVICE_(.*)=y/\1/')
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        sudo -E apt-get -qq install rename
         for val in "${devices[@]}"; do
           rename "s/.*${val}/${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${val}${{ env.WIFI_VERSION }}${{ env.EEPROM }}${{ env.BUILD_DOCKERMAN }}/" *
           echo "$val"
