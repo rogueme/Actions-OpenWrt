@@ -1,0 +1,30 @@
+name: Rename Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-rename:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update package list
+        run: sudo apt-get update
+
+      - name: Install rename
+        run: sudo apt-get install -y rename
+
+      - name: Create test files
+        run: |
+          touch test_file_1.txt
+          touch test_file_2.txt
+          touch test_file_3.txt
+
+      - name: Rename files
+        run: rename 's/test_file/new_test_file/' *.txt
+
+      - name: List files
+        run: ls -l    
