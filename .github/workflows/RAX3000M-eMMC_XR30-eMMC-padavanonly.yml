@@ -133,6 +133,7 @@ jobs:
     - name: 更新 & 安装 feeds
       run: |
         cd openwrt
+        cat openwrt/feeds.conf.default
         ./scripts/feeds update -a && ./scripts/feeds install -a
 
     - name: 加载config & DIY_P2_SH
