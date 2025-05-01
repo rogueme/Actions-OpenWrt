@@ -39,7 +39,7 @@ on:
         - v7.6.6.1-fw-20231024
         - v7.6.6.1-fw-20240823
       EEPROM:
-        description: 'Use nx30pro eeprom and fixed WiFi MAC address'
+        description: '使用nx30pro eeprom和固定WiFi MAC地址'
         required: true
         default: true
         type: boolean
@@ -54,7 +54,7 @@ on:
         default: false
         type: boolean
       ssh:
-        description: 'SSH connection to Actions'
+        description: 'SSH连接到Actions?'
         required: false
         default: 'false'
 #  schedule:
