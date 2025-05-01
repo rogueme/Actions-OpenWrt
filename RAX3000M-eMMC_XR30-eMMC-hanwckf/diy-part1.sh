@@ -15,7 +15,7 @@
 
 # Add a feed source
 #添加easymesh
-#echo 'src-git luci-app-easymesh https://github.com/shuishihan/luci-app-easymesh.git' >> feeds.conf.default
+echo 'src-git luci-app-easymesh https://github.com/shuishihan/luci-app-easymesh.git' >> feeds.conf.default
 #添加luci-app-adguardhome
 echo 'src-git luci-app-adguardhome https://github.com/rufengsuixing/luci-app-adguardhome.git' >> feeds.conf.default
 # istore
